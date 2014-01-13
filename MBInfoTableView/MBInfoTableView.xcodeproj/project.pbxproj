@@ -22,6 +22,7 @@
 		FE0B988D188388FA0036EADF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE0B988B188388FA0036EADF /* InfoPlist.strings */; };
 		FE0B988F188388FA0036EADF /* MBInfoTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0B988E188388FA0036EADF /* MBInfoTableViewTests.m */; };
 		FE0B98A51883B3B50036EADF /* MBInfoTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0B98A41883B3B50036EADF /* MBInfoTableViewDelegate.m */; };
+		FE0B98A81883C0660036EADF /* MBInfoTableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0B98A71883C0660036EADF /* MBInfoTableModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		FE0B988E188388FA0036EADF /* MBInfoTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBInfoTableViewTests.m; sourceTree = "<group>"; };
 		FE0B98A31883B3B50036EADF /* MBInfoTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoTableViewDelegate.h; sourceTree = "<group>"; };
 		FE0B98A41883B3B50036EADF /* MBInfoTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoTableViewDelegate.m; sourceTree = "<group>"; };
+		FE0B98A61883C0660036EADF /* MBInfoTableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoTableModel.h; sourceTree = "<group>"; };
+		FE0B98A71883C0660036EADF /* MBInfoTableModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoTableModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				FE0B9879188388FA0036EADF /* ViewController.m */,
 				FE0B98A31883B3B50036EADF /* MBInfoTableViewDelegate.h */,
 				FE0B98A41883B3B50036EADF /* MBInfoTableViewDelegate.m */,
+				FE0B98A61883C0660036EADF /* MBInfoTableModel.h */,
+				FE0B98A71883C0660036EADF /* MBInfoTableModel.m */,
 				FE0B987B188388FA0036EADF /* Images.xcassets */,
 				FE0B986A188388FA0036EADF /* Supporting Files */,
 			);
@@ -254,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE0B98A81883C0660036EADF /* MBInfoTableModel.m in Sources */,
 				FE0B987A188388FA0036EADF /* ViewController.m in Sources */,
 				FE0B9874188388FA0036EADF /* AppDelegate.m in Sources */,
 				FE0B9870188388FA0036EADF /* main.m in Sources */,

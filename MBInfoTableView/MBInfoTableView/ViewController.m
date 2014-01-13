@@ -19,17 +19,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    MBInfoTableViewDelegate *tableDelegate = [MBInfoTableViewDelegate new];
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) style:UITableViewStylePlain];
-    [tableView setDataSource:tableDelegate];
-    [tableView setDelegate:tableDelegate];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, 320, 470) style:UITableViewStylePlain];
+    self.tableDelegate = [[MBInfoTableViewDelegate alloc] init];
+    [self.tableView setDataSource:self.tableDelegate];
+    [self.tableView setDelegate:self.tableDelegate];
     
-    [tableDelegate initTableView:tableView WithDictionary:@{@"test title1" : @"test description1",
+    [self.tableDelegate initTableView:self.tableView WithDictionary:@{@"test title1" : @"test description1",
                                             @"test title2" : @"test description2",
                                             @"test title3" : @"test description3",
                                             @"test title4" : @"test description4"}];
     
-    [self.view addSubview:tableView];
+    //[self.tableDelegate initTableView:self.tableView WithArray:];
+    
+    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning

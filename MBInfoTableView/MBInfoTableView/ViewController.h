@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class MBInfoTableViewDelegate;
+
 @interface ViewController : UIViewController
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) MBInfoTableViewDelegate *tableDelegate;
 
 @end

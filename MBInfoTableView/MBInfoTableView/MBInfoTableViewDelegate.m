@@ -7,12 +7,15 @@
 //
 
 #import "MBInfoTableViewDelegate.h"
+#import "MBInfoTableModel.h"
 
 @interface MBInfoTableViewDelegate ()
 
-@property (strong, nonatomic) NSArray *totalCellArray;
+@property (strong, nonatomic) NSDictionary *tableInfoDic;
+@property (strong, nonatomic) NSMutableArray *totalCellArray;
 @property (strong, nonatomic) NSMutableArray *titleCellArray;
 @property (strong, nonatomic) NSMutableArray *descriptionCellArray;
+@property (assign, nonatomic) NSInteger currentTag;
 
 @end
 
@@ -24,6 +27,10 @@
     if (self != nil) {
         //initialize code
         self.enableMultiSelection = NO;
+        
+        self.totalCellArray = [NSMutableArray new];
+        self.titleCellArray = [NSMutableArray new];
+        self.descriptionCellArray = [NSMutableArray new];
     }
     
     return self;
@@ -42,19 +49,29 @@
         for (NSString *key in allKeys) {
             
             NSString *description = [infoDic objectForKey:key];
-            [self.titleCellArray addObject:key];
-            [self.descriptionCellArray addObject:description];
+            
+            
+            MBInfoTableModel *tableModel = [MBInfoTableModel new];
+            [tableModel setText:key];
+            [tableModel setCellType:MBInfoTableTypeTitle];
+            [self.titleCellArray addObject:tableModel];
+            
+            tableModel = [MBInfoTableModel new];
+            [tableModel setText:description];
+            [tableModel setCellType:MBInfoTableTypeDescription];
+            [self.descriptionCellArray addObject:tableModel];
         }
         
-        self.totalCellArray = [NSArray arrayWithArray:self.titleCellArray];
+        self.tableInfoDic = infoDic;
+        self.totalCellArray = [NSMutableArray arrayWithArray:self.titleCellArray];
+        [tableView reloadData];
     }
 }
 
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(void)regenerateTable
 {
-    return 1;
 }
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -68,17 +85,53 @@
     if (cell == nil) {
         cell = [UITableViewCell new];
     }
-    
-    [cell.textLabel setText:[self.totalCellArray objectAtIndex:indexPath.row]];
+    MBInfoTableModel *tableModel = [self.totalCellArray objectAtIndex:indexPath.row];
+    if (tableModel.cellType == MBInfoTableTypeTitle) {
+        
+        
+        if (indexPath.row == 0) {
+            self.currentTag = 0;
+        } else {
+            self.currentTag++;
+        }
+        
+        [cell.textLabel setText:tableModel.text];
+        [cell setTag:self.currentTag];
+    } else {
+        
+        [cell.textLabel setText:tableModel.text];
+    }
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView beginUpdates];
-    [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    [tableView endUpdates];
+    MBInfoTableModel *titleModel = [self.totalCellArray objectAtIndex:indexPath.row];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (titleModel.cellType == MBInfoTableTypeTitle && cell != nil && [titleModel isSelected] == NO) {
+        
+        //this code will be modified after I make aregenerateTable method.
+        [titleModel setSelected:YES];
+        
+        MBInfoTableModel *descriptionModel = [MBInfoTableModel new];
+        [descriptionModel setText:[self.tableInfoDic objectForKey:titleModel.text]];
+        [descriptionModel setCellType:MBInfoTableTypeDescription];
+        
+        [tableView beginUpdates];
+        if (indexPath.row < [self.totalCellArray count]) {
+            [self.totalCellArray insertObject:descriptionModel atIndex:(cell.tag+1)];
+        } else {
+            
+            [self.totalCellArray addObject:descriptionModel];
+        }
+        ////////////////////////////////////////////////////////////////////
+        
+        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
 }
+
 
 @end
