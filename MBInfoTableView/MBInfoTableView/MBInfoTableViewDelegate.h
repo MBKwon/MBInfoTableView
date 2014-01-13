@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^MBCellSelectionBlock)(int);
+
 @interface MBInfoTableViewDelegate : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSString *titleCellID;
 @property (strong, nonatomic) NSString *descriptionCellID;
+
+@property (strong, nonatomic) MBCellSelectionBlock selectionBlock;
 
 @property (assign, nonatomic, getter = isEnableMultiSelection) BOOL enableMultiSelection;
 

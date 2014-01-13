@@ -96,6 +96,7 @@
     } else {
         
         [cell.textLabel setText:tableModel.text];
+        [cell setTag:self.currentTag];
     }
     
     return cell;
@@ -126,13 +127,19 @@
             [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
             
-        } else {
+        } else if (titleModel.cellType == MBInfoTableTypeTitle) {
             
             [titleModel setSelected:NO];
             [self.totalCellArray removeObjectAtIndex:(indexPath.row+1)];
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
+        } else {
+            
+            if (self.selectionBlock != nil) {
+                
+                self.selectionBlock(cell.tag);
+            }
         }
     }
 }

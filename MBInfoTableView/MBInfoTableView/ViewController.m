@@ -21,6 +21,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, 320, 470) style:UITableViewStylePlain];
     self.tableDelegate = [[MBInfoTableViewDelegate alloc] init];
+    
+    
     [self.tableView setDataSource:self.tableDelegate];
     [self.tableView setDelegate:self.tableDelegate];
     
@@ -29,8 +31,11 @@
                                             @"test title3" : @"test description3",
                                             @"test title4" : @"test description4"}];
     
-    //[self.tableDelegate initTableView:self.tableView WithArray:];
     
+    [self.tableDelegate setSelectionBlock:^(int cellTag) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:[NSString stringWithFormat:@"You selected a cell that is a tag %d", cellTag] delegate:nil cancelButtonTitle:@"Confirm" otherButtonTitles:nil];
+        [alertView show];
+    }];
     [self.view addSubview:self.tableView];
 }
 
