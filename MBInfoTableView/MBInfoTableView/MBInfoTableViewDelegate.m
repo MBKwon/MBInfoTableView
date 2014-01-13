@@ -106,30 +106,34 @@
     MBInfoTableModel *titleModel = [self.totalCellArray objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    if (titleModel.cellType == MBInfoTableTypeTitle && cell != nil && [titleModel isSelected] == NO) {
+    if (cell != nil) {
+        [cell setSelected:NO];
         
-        [titleModel setSelected:YES];
-        MBInfoTableModel *descriptionModel = [self.descriptionCellArray objectAtIndex:cell.tag];
-        
-        
-        [tableView beginUpdates];
-        if (indexPath.row < [self.totalCellArray count]) {
-            [self.totalCellArray insertObject:descriptionModel atIndex:(indexPath.row+1)];
+        if (titleModel.cellType == MBInfoTableTypeTitle && [titleModel isSelected] == NO) {
+            
+            [titleModel setSelected:YES];
+            MBInfoTableModel *descriptionModel = [self.descriptionCellArray objectAtIndex:cell.tag];
+            
+            
+            [tableView beginUpdates];
+            if (indexPath.row < [self.totalCellArray count]) {
+                [self.totalCellArray insertObject:descriptionModel atIndex:(indexPath.row+1)];
+            } else {
+                
+                [self.totalCellArray addObject:descriptionModel];
+            }
+            
+            [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+            
         } else {
             
-            [self.totalCellArray addObject:descriptionModel];
+            [titleModel setSelected:NO];
+            [self.totalCellArray removeObjectAtIndex:(indexPath.row+1)];
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
         }
-        
-        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
-        
-    } else {
-        
-        [titleModel setSelected:NO];
-        [self.totalCellArray removeObjectAtIndex:(indexPath.row+1)];
-        [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(indexPath.row+1) inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView endUpdates];
     }
 }
 
