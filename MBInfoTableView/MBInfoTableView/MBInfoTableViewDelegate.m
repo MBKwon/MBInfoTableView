@@ -46,6 +46,7 @@
         self.titleCellArray = [NSMutableArray new];
         self.descriptionCellArray = [NSMutableArray new];
         
+        int i = 0;
         for (NSString *key in allKeys) {
             
             NSString *description = [infoDic objectForKey:key];
@@ -58,6 +59,7 @@
             
             tableModel = [MBInfoTableModel new];
             [tableModel setText:description];
+            [tableModel setDescriptionIndex:i++];
             [tableModel setCellType:MBInfoTableTypeDescription];
             [self.descriptionCellArray addObject:tableModel];
         }
@@ -96,7 +98,6 @@
     } else {
         
         [cell.textLabel setText:tableModel.text];
-        [cell setTag:self.currentTag];
     }
     
     return cell;
@@ -138,7 +139,7 @@
             
             if (self.selectionBlock != nil) {
                 
-                self.selectionBlock(cell.tag);
+                self.selectionBlock(titleModel.descriptionIndex);
             }
         }
     }

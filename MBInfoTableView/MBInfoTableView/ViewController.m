@@ -33,7 +33,7 @@
     
     
     [self.tableDelegate setSelectionBlock:^(int cellTag) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:[NSString stringWithFormat:@"You selected a cell that is a tag %d", cellTag] delegate:nil cancelButtonTitle:@"Confirm" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info" message:[NSString stringWithFormat:@"A description index is %d you selected", cellTag] delegate:nil cancelButtonTitle:@"Confirm" otherButtonTitles:nil];
         [alertView show];
     }];
     [self.view addSubview:self.tableView];

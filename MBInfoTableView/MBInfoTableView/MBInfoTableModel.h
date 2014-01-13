@@ -16,6 +16,7 @@ typedef enum MBInfoTableType {
 @interface MBInfoTableModel : NSObject
 
 @property (strong, nonatomic) NSString *text;
+@property (assign, nonatomic) NSInteger descriptionIndex;
 @property (assign, nonatomic) MBInfoTableType cellType;
 @property (assign, nonatomic, getter = isSelected) BOOL selected;
 
