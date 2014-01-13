@@ -26,10 +26,10 @@
     [self.tableView setDataSource:self.tableDelegate];
     [self.tableView setDelegate:self.tableDelegate];
     
-    [self.tableDelegate initTableView:self.tableView WithDictionary:@{@"test title1" : @"test description1",
-                                            @"test title2" : @"test description2",
-                                            @"test title3" : @"test description3",
-                                            @"test title4" : @"test description4"}];
+    [self.tableDelegate initTableView:self.tableView WithDictionary:@{@"test title 1" : @"test description 1",
+                                            @"test title 2" : @"test description 2",
+                                            @"test title 3" : @"test description 3",
+                                            @"test title 4" : @"test description 4"}];
     
     
     [self.tableDelegate setSelectionBlock:^(int cellTag) {
