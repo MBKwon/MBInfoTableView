@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MBInfoTableView.h"
+#import "MBInfoTableViewDelegate.h"
 
 @interface ViewController ()
 
@@ -19,7 +19,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    MBInfoTableView *tableView = [[MBInfoTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) style:UITableViewStylePlain];
+    MBInfoTableViewDelegate *tableDelegate = [MBInfoTableViewDelegate new];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 480) style:UITableViewStylePlain];
+    [tableView setDataSource:tableDelegate];
+    [tableView setDelegate:tableDelegate];
+    
+    [tableDelegate initTableView:tableView WithDictionary:@{@"test title1" : @"test description1",
+                                            @"test title2" : @"test description2",
+                                            @"test title3" : @"test description3",
+                                            @"test title4" : @"test description4"}];
+    
     [self.view addSubview:tableView];
 }
 
