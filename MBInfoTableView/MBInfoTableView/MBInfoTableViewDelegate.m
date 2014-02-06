@@ -9,6 +9,8 @@
 #import "MBInfoTableViewDelegate.h"
 #import "MBInfoTableModel.h"
 
+#define DEFAULT_CELL_HEIGHT 44
+
 @interface MBInfoTableViewDelegate ()
 
 
@@ -75,6 +77,26 @@
     return [self.totalCellArray count];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MBInfoTableModel *tableModel = [self.totalCellArray objectAtIndex:indexPath.row];
+    
+    if (tableModel.cellType == MBInfoTableTypeTitle) {
+        
+        return DEFAULT_CELL_HEIGHT;
+        
+    } else {
+        
+        //mbk : after a method(getFitHeight) is made, return a return value of that method's.
+        return [self getFitHeightWithText:@""];
+    }
+}
+
+-(CGFloat)getFitHeightWithText:(NSString *)text
+{
+    return DEFAULT_CELL_HEIGHT;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.titleCellID];
@@ -95,6 +117,7 @@
         
         [cell.textLabel setText:tableModel.text];
         [cell setTag:self.currentTag];
+        
     } else {
         
         [cell.textLabel setText:tableModel.text];
